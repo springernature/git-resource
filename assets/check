@@ -47,7 +47,7 @@ echo "passed in ref is $ref" >> $resource_log
 echo "latest ref from ls-remote is $latestRef"  >> $resource_log
 if [ "$ref" == "$latestRef" ]; then
     echo "no need to fetch from git, hazza"  >> $resource_log
-    echo $ref | jq -R '.' | jq -s "map({ref: .})" | jq '.[] + {"poopy": "pant"}' >&3
+    echo $ref | jq -R '.' | jq -s "map({ref: .})" | jq '.[] + {"poopy": "pant"} | [.]' >&3
     exit
 fi
 echo "different refs, continuing doing the needful"  >> $resource_log
@@ -170,5 +170,5 @@ else
     set -f
     eval "$list_command"
     set +f
-  } | jq -R '.' | jq -s "map({ref: .})" | jq '.[] + {"poopy": "pant"}' >&3
+  } | jq -R '.' | jq -s "map({ref: .})" | jq '.[] + {"poopy": "pant"} | [.]' >&3
 fi
